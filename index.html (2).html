@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphora Live Studio — Tu invitado no solo asiste, él crea</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --terra:   #D85A30;
+    --tierra:  #8B7355;
+    --tierra-d:#6b5940;
+    --crema:   #F5F0E8;
+    --crema-d: #EDE5D8;
+    --hueso:   #FAF7F2;
+    --texto:   #2C2416;
+    --suave:   #7A6A56;
+    --borde:   rgba(139,115,85,0.18);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--hueso);
+    color: var(--texto);
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: var(--tierra);
+    z-index: 0;
+  }
+
+  .hero-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.07);
+    pointer-events: none;
+  }
+  .hero-circle-1 { width: 500px; height: 500px; top: -140px; right: -100px; }
+  .hero-circle-2 { width: 340px; height: 340px; bottom: -100px; left: -80px; }
+  .hero-circle-3 { width: 180px; height: 180px; top: 60px; left: 60px; }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 8vw, 72px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    max-width: 780px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .hero-title .accent-line {
+    display: block;
+    position: relative;
+  }
+
+  .hero-title .accent-line::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2.5vw, 17px);
+    color: rgba(255,255,255,0.68);
+    line-height: 1.7;
+    max-width: 480px;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: var(--tierra-d);
+    border: none;
+    border-radius: 50px;
+    padding: 16px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  }
+
+  .hero-cta svg { flex-shrink: 0; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.4;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .hero-scroll span { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ─── DOLOR ─── */
+  .dolor {
+    background: var(--crema);
+    padding: 5rem 1.5rem;
+    text-align: center;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terra);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 400;
+    color: var(--texto);
+    line-height: 1.2;
+    max-width: 580px;
+    margin: 0 auto 1rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--tierra); }
+
+  .section-sub {
+    font-size: 15px;
+    color: var(--suave);
+    max-width: 420px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .dolor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .dolor-card {
+    background: var(--hueso);
+    border: 0.5px solid var(--borde);
+    border-radius: 12px;
+    padding: 1.75rem 1.5rem;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dolor-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--terra);
+    opacity: 0.6;
+  }
+
+  .dolor-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--texto);
+    margin-bottom: 0.75rem;
+    line-height: 1.45;
+  }
+
+  .dolor-answer {
+    font-size: 13px;
+    color: var(--suave);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ─── QUÉ ES ─── */
+  .que-es {
+    padding: 5rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .que-es-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 620px) {
+    .que-es-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  .que-es-visual {
+    aspect-ratio: 3/4;
+    background: var(--tierra);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .que-es-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent, transparent 18px,
+      rgba(255,255,255,0.03) 18px,
+      rgba(255,255,255,0.03) 19px
+    );
+  }
+
+  .que-es-word {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.18);
+    line-height: 1;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .que-es-word strong {
+    display: block;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 0.5rem;
+    font-size: 11px;
+  }
+
+  .que-es-text .section-eyebrow { display: block; text-align: left; margin-bottom: 0.75rem; }
+  .que-es-text .section-title { text-align: left; margin: 0 0 1rem; max-width: 100%; }
+
+  .que-es-desc {
+    font-size: 15px;
+    color: var(--suave);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  /* ─── PARA QUIÉN ─── */
+  .para-quien {
+    background: var(--crema);
+    padding: 5rem 1.5rem;
+  }
+
+  .para-quien-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .pq-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .pq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 560px) {
+    .pq-grid { grid-template-columns: 1fr; }
+  }
+
+  .pq-card {
+    background: var(--hueso);
+    border: 0.5px solid var(--borde);
+    border-radius: 14px;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .pq-icon {
+    font-size: 28px;
+    margin-bottom: 1rem;
+  }
+
+  .pq-tipo {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tierra);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .pq-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--texto);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .pq-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pq-list li {
+    font-size: 13px;
+    color: var(--suave);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .pq-list li::before {
+    content: '—';
+    color: var(--terra);
+    flex-shrink: 0;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  /* ─── EXPERIENCIA ─── */
+  .experiencia {
+    padding: 5rem 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .exp-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+
+  .exp-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 10%;
+    right: 10%;
+    height: 0.5px;
+    background: var(--borde);
+  }
+
+  .exp-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 1rem 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .exp-step-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    background: var(--hueso);
+    border: 0.5px solid var(--borde);
+    color: var(--tierra);
+    flex-shrink: 0;
+  }
+
+  .exp-step:nth-child(2) .exp-step-num,
+  .exp-step:nth-child(4) .exp-step-num {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: #fff;
+  }
+
+  .exp-step-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--texto);
+    text-align: center;
+  }
+
+  .exp-step-desc {
+    font-size: 12px;
+    color: var(--suave);
+    text-align: center;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ─── PERSONALIZABLES ─── */
+  .items {
+    background: var(--tierra);
+    padding: 5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .items::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .items .section-eyebrow { color: rgba(255,255,255,0.5); }
+  .items .section-title { color: #fff; }
+  .items .section-sub { color: rgba(255,255,255,0.6); }
+
+  .items-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .item-pill {
+    background: rgba(255,255,255,0.10);
+    border: 0.5px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 10px 22px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.88);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── FRASES TESTIMONIALES ─── */
+  .frases {
+    padding: 5rem 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .frases-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .frases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .frase-card {
+    border: 0.5px solid var(--borde);
+    border-radius: 12px;
+    padding: 1.75rem;
+    position: relative;
+  }
+
+  .frase-open {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    color: var(--terra);
+    line-height: 0.6;
+    opacity: 0.4;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .frase-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--texto);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .frase-who {
+    font-size: 11px;
+    color: var(--suave);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ─── CTA FINAL ─── */
+  .cta-final {
+    background: var(--crema);
+    padding: 6rem 1.5rem;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 300;
+    color: var(--texto);
+    line-height: 1.15;
+    max-width: 600px;
+    margin: 0 auto 1.25rem;
+  }
+
+  .cta-title em { font-style: italic; color: var(--tierra); }
+
+  .cta-sub {
+    font-size: 15px;
+    color: var(--suave);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .cta-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .cta-wa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(37,211,102,0.35);
+  }
+
+  .cta-note {
+    display: block;
+    margin-top: 1rem;
+    font-size: 12px;
+    color: var(--suave);
+    opacity: 0.7;
+    font-weight: 300;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: 0.5px solid var(--borde);
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--tierra);
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-brand em { font-style: italic; }
+
+  .footer-sub {
+    font-size: 11px;
+    color: var(--suave);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ─── UTILS ─── */
+  .wa-float {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: #25D366;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.2s;
+    text-decoration: none;
+  }
+
+  .wa-float:hover { transform: scale(1.08); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll, .hero-cta, .cta-wa { animation: none; transition: none; }
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 6rem 1.25rem 5rem; }
+    .exp-steps::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-circle hero-circle-1"></div>
+  <div class="hero-circle hero-circle-2"></div>
+  <div class="hero-circle hero-circle-3"></div>
+
+  <p class="hero-eyebrow">Alphora Live Studio · Medellín</p>
+
+  <h1 class="hero-title">
+    Tu invitado no solo asiste,
+    <span class="accent-line"><em>él crea.</em></span>
+  </h1>
+
+  <p class="hero-sub">
+    Un estudio móvil de personalización en vivo que convierte cualquier evento en una experiencia que nadie olvida.
+  </p>
+
+  <a href="https://wa.me/573042466227?text=Hola%2C%20quiero%20llevar%20Alphora%20Live%20Studio%20a%20mi%20evento" class="hero-cta" target="_blank" rel="noopener">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.554 4.122 1.523 5.855L0 24l6.336-1.504A11.929 11.929 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.366l-.359-.213-3.76.893.934-3.651-.234-.376A9.818 9.818 0 0112 2.182c5.426 0 9.818 4.392 9.818 9.818 0 5.425-4.392 9.818-9.818 9.818z"/>
+    </svg>
+    Quiero esto en mi evento
+  </a>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- PUNTOS DE DOLOR -->
+<section class="dolor">
+  <p class="section-eyebrow">¿Te suena familiar?</p>
+  <h2 class="section-title">El problema con los eventos <em>de siempre</em></h2>
+  <p class="section-sub">Lo que las personas sienten — y lo que tú quieres cambiar.</p>
+
+  <div class="dolor-grid">
+    <div class="dolor-card">
+      <p class="dolor-quote">"Fue bonito, pero al día siguiente nadie lo recordaba."</p>
+      <p class="dolor-answer">Cuando el evento termina, la experiencia desaparece. Alphora Live Studio deja algo físico, hecho por ellos, que sigue hablando de tu marca o tu celebración.</p>
+    </div>
+    <div class="dolor-card">
+      <p class="dolor-quote">"Los souvenirs los dejamos todos en la mesa."</p>
+      <p class="dolor-answer">Nadie valora lo que no eligió. Cuando tu invitado crea su propio artículo, se lo lleva con orgullo — y lo usa.</p>
+    </div>
+    <div class="dolor-card">
+      <p class="dolor-quote">"Mi marca estuvo en el evento, pero no generó conversación."</p>
+      <p class="dolor-answer">Una activación pasiva no conecta. Cuando la gente personaliza algo frente a sus compañeros, hablan, ríen, se fotografían — tu marca vive en ese momento.</p>
+    </div>
+    <div class="dolor-card">
+      <p class="dolor-quote">"Quería algo diferente pero no supe cómo."</p>
+      <p class="dolor-answer">Nosotros llegamos, montamos y ejecutamos. Tú solo disfrutas mientras tus invitados crean.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ ES -->
+<section class="que-es">
+  <div class="que-es-inner">
+    <div class="que-es-visual" aria-hidden="true">
+      <div class="que-es-word">
+        Crea<br>en<br>vivo
+        <strong>Alphora Live Studio</strong>
+      </div>
+    </div>
+    <div class="que-es-text">
+      <p class="section-eyebrow">Qué es</p>
+      <h2 class="section-title">Un estudio móvil que llega a donde tú estés</h2>
+      <p class="que-es-desc">
+        Llevamos toda la experiencia de personalización directamente a tu evento. Un puesto completamente equipado donde cada invitado elige, diseña y se lleva una pieza única — hecha frente a sus ojos, en el momento.
+      </p>
+      <p class="que-es-desc">
+        No es un stand de mercancía. Es una experiencia interactiva donde <strong>el invitado es el creador.</strong>
+      </p>
+      <a href="https://wa.me/573042466227?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20de%20Alphora%20Live%20Studio" class="hero-cta" style="font-size:14px; padding:13px 24px;" target="_blank" rel="noopener">
+        Hablar con Alejandra
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="para-quien">
+  <div class="para-quien-inner">
+    <div class="pq-header">
+      <p class="section-eyebrow">Para quién</p>
+      <h2 class="section-title">Dos mundos, <em>una misma experiencia</em></h2>
+    </div>
+    <div class="pq-grid">
+      <div class="pq-card">
+        <div class="pq-icon" aria-hidden="true">🏢</div>
+        <p class="pq-tipo">Empresas y marcas</p>
+        <h3 class="pq-title">Activa tu marca de forma que se recuerde</h3>
+        <ul class="pq-list">
+          <li>Activaciones de marca con impacto real</li>
+          <li>Eventos corporativos y de bienestar</li>
+          <li>Lanzamientos de producto</li>
+          <li>Ferias y espacios de exhibición</li>
+          <li>Gifting personalizado para equipos</li>
+        </ul>
+      </div>
+      <div class="pq-card">
+        <div class="pq-icon" aria-hidden="true">🎉</div>
+        <p class="pq-tipo">Personas y celebraciones</p>
+        <h3 class="pq-title">Un recuerdo que tus invitados van a usar</h3>
+        <ul class="pq-list">
+          <li>Cumpleaños con experiencia incluida</li>
+          <li>Despedidas de soltera</li>
+          <li>Reuniones familiares o de amigos</li>
+          <li>Eventos de iglesia o comunidad</li>
+          <li>Cualquier celebración que merezca ser recordada</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="experiencia">
+  <p class="section-eyebrow">Cómo funciona</p>
+  <h2 class="section-title">De la idea a la pieza <em>en minutos</em></h2>
+  <p class="section-sub">Así se vive la experiencia en tu evento.</p>
+
+  <div class="exp-steps">
+    <div class="exp-step">
+      <div class="exp-step-num">1</div>
+      <p class="exp-step-title">Llegamos y montamos</p>
+      <p class="exp-step-desc">El estudio llega listo. Tú no mueves un dedo.</p>
+    </div>
+    <div class="exp-step">
+      <div class="exp-step-num">2</div>
+      <p class="exp-step-title">Cada quien elige</p>
+      <p class="exp-step-desc">Tu invitado escoge la pieza, el diseño y el mensaje.</p>
+    </div>
+    <div class="exp-step">
+      <div class="exp-step-num">3</div>
+      <p class="exp-step-title">Lo vive en vivo</p>
+      <p class="exp-step-desc">Ve cómo su pieza nace frente a sus ojos.</p>
+    </div>
+    <div class="exp-step">
+      <div class="exp-step-num">4</div>
+      <p class="exp-step-title">Se lo lleva puesto</p>
+      <p class="exp-step-desc">Un recuerdo único que nadie más tiene.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ SE PERSONALIZA -->
+<section class="items">
+  <p class="section-eyebrow">Qué se personaliza</p>
+  <h2 class="section-title" style="color:#fff; margin-bottom:0.75rem;">Piezas que se convierten en recuerdos</h2>
+  <p class="section-sub" style="margin-bottom:2.5rem; position:relative; z-index:1;">Cada pieza sale única del evento — nadie más tiene la misma.</p>
+
+  <div class="items-grid">
+    <span class="item-pill">Camisetas</span>
+    <span class="item-pill">Medias</span>
+    <span class="item-pill">Gorras</span>
+    <span class="item-pill">Bolsas tote</span>
+    <span class="item-pill">Libretas</span>
+    <span class="item-pill">Accesorios</span>
+    <span class="item-pill">¿Tienes algo en mente? Cuéntanos.</span>
+  </div>
+</section>
+
+<!-- FRASES / TESTIMONIOS -->
+<section class="frases">
+  <div class="frases-header">
+    <p class="section-eyebrow">Lo que se escucha en el evento</p>
+    <h2 class="section-title">Cuando alguien crea algo suyo, <em>reacciona distinto</em></h2>
+  </div>
+
+  <div class="frases-grid">
+    <div class="frase-card">
+      <span class="frase-open" aria-hidden="true">"</span>
+      <p class="frase-text">Nunca había visto a mi equipo tan metido en una dinámica de marca.</p>
+      <span class="frase-who">Empresa · Activación corporativa</span>
+    </div>
+    <div class="frase-card">
+      <span class="frase-open" aria-hidden="true">"</span>
+      <p class="frase-text">Los invitados todavía me hablan de eso. Y eso fue hace tres meses.</p>
+      <span class="frase-who">Persona · Cumpleaños 40</span>
+    </div>
+    <div class="frase-card">
+      <span class="frase-open" aria-hidden="true">"</span>
+      <p class="frase-text">Mi hija no paró de hablar del evento en toda la semana.</p>
+      <span class="frase-who">Mamá · Fiesta infantil</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <p class="section-eyebrow">Reserva tu fecha</p>
+  <h2 class="cta-title">¿Listo para que tu evento sea <em>inolvidable?</em></h2>
+  <p class="cta-sub">Escríbenos y en menos de 24 horas tienes una propuesta lista para tu evento.</p>
+
+  <a href="https://wa.me/573042466227?text=Hola%20Alejandra%2C%20quiero%20llevar%20Alphora%20Live%20Studio%20a%20mi%20evento.%20Me%20puedes%20contar%20m%C3%A1s%3F" class="cta-wa" target="_blank" rel="noopener">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.554 4.122 1.523 5.855L0 24l6.336-1.504A11.929 11.929 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.366l-.359-.213-3.76.893.934-3.651-.234-.376A9.818 9.818 0 0112 2.182c5.426 0 9.818 4.392 9.818 9.818 0 5.425-4.392 9.818-9.818 9.818z"/>
+    </svg>
+    Escribir por WhatsApp
+  </a>
+  <span class="cta-note">Atendemos desde Medellín · Respondemos en menos de 24h</span>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-brand">Alphora Live <em>Studio</em></p>
+  <p class="footer-sub">Una experiencia de Alphora Essence · Medellín, Colombia</p>
+</footer>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/573042466227?text=Hola%2C%20quiero%20m%C3%A1s%20info%20de%20Alphora%20Live%20Studio" class="wa-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.554 4.122 1.523 5.855L0 24l6.336-1.504A11.929 11.929 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.366l-.359-.213-3.76.893.934-3.651-.234-.376A9.818 9.818 0 0112 2.182c5.426 0 9.818 4.392 9.818 9.818 0 5.425-4.392 9.818-9.818 9.818z"/>
+  </svg>
+</a>
+
+</body>
+</html>
